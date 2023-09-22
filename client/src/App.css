@@ -1,0 +1,107 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f4;
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  background-color: #6200ea;
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #3700b3;
+}
+
+iframe {
+  border: none;
+  margin-top: 20px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 20px;
+  flex-direction: row;  /* Change from column to row for side-by-side layout */
+}
+
+/* ... Existing styles ... */
+
+button {
+  background: none; /* Remove background color */
+  margin: 0 15px;  /* Increase side margins for spacing */
+  font-size: 24px; /* Make icons slightly larger */
+  color: #6200ea;  /* Set default icon color */
+}
+
+button:hover {
+  color: #3700b3;
+}
+
+button .fa-heart {
+  color: red;
+}
+
+button:hover .fa-heart {
+  color: darkred;  /* Slightly darker red for hover effect */
+}
+
+.song-container {
+  transition: transform 0.5s ease-in-out;
+}
+
+.song-container.like {
+  transform: translateX(100%);
+}
+
+.song-container.dislike {
+  transform: translateX(-100%);
+}
