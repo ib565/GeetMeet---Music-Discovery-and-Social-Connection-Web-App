@@ -14,7 +14,8 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #28282B ;
+  /* background-color: #282a2b; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -54,10 +55,6 @@ button {
   transition: background-color 0.3s;
 }
 
-button:hover {
-  background-color: #3700b3;
-}
-
 iframe {
   border: none;
   margin-top: 20px;
@@ -77,31 +74,35 @@ iframe {
 
 button {
   background: none; /* Remove background color */
-  margin: 0 15px;  /* Increase side margins for spacing */
-  font-size: 24px; /* Make icons slightly larger */
-  color: #6200ea;  /* Set default icon color */
+  margin: 0 40px;  /* Increase side margins for spacing */
+  font-size: 30px; /* Make icons slightly larger */
+  color: red;  /* Set default icon color */
 }
 
 button:hover {
-  color: #3700b3;
+  transform: scale(1.25);
 }
 
 button .fa-heart {
-  color: red;
-}
-
-button:hover .fa-heart {
-  color: darkred;  /* Slightly darker red for hover effect */
+  color: #09c11c;
 }
 
 .song-container {
-  transition: transform 0.5s ease-in-out;
+  opacity: 1;
+  transition: transform 1s, opacity 1s;
 }
 
 .song-container.like {
   transform: translateX(100%);
+  opacity: 0;
 }
 
 .song-container.dislike {
   transform: translateX(-100%);
+  opacity: 0;
+}
+
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.5s;
 }

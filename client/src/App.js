@@ -22,7 +22,9 @@ function App() {
         try {
             const response = await axios.get('http://localhost:5000/get_new_song', track);
             setTrack(response.data);
-            setTransition(null);
+            setTimeout(() => {
+              setTransition('fade-in');  // Start the fade-in transition after the delay
+          }, 1000); // 1 second delay before fade-in starts
         } catch (error) {
             console.error("Error liking song:", error);
         }
@@ -35,7 +37,9 @@ function App() {
           try {
               const response = await axios.get('http://localhost:5000/get_new_song');
               setTrack(response.data);
-              setTransition(null);
+              setTimeout(() => {
+                setTransition('fade-in');  // Start the fade-in transition after the delay
+            }, 1000); // 1 second delay before fade-in starts
           } catch (error) {
               console.error("Error disliking song:", error);
           }
@@ -54,8 +58,6 @@ function App() {
           <iframe style={{border: 'none'}} src={track.embed_url} width="300" height="380" allowtransparency="true" allow="encrypted-media; autoplay" title="Spotify"></iframe>
         </div>
         <div>
-          {/* <button onClick={fetchNewSong}>Like</button>
-          <button onClick={fetchNewSong}>Dislike</button> */}
           <button onClick={dislikeSong}><i className="fas fa-times"></i></button>
           <button onClick={likeSong}><i className="fas fa-heart"></i></button>
         </div>
