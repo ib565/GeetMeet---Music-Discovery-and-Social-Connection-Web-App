@@ -38,10 +38,11 @@ liked_songs = []
 @app.route('/like_song', methods=['POST'])
 def like_song():
     song_data = request.json
-    print(song_data)
+    # print(song_data)
     if not any(song['track_id'] == song_data['track_id'] for song in liked_songs):
         liked_songs.append(song_data)
-    print(liked_songs)
+    for song in liked_songs:
+        print(song['track_name'])
     return jsonify({'message': 'Song liked!', 'total_likes': len(liked_songs)})
 
 
