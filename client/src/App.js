@@ -19,15 +19,21 @@ function App() {
   const likeSong = async () => {
     setTransition('like');
     setTimeout(async () => {
-        try {
-            const response = await axios.get('http://localhost:5000/get_new_song', track);
-            setTrack(response.data);
-            setTimeout(() => {
-              setTransition('fade-in');  // Start the fade-in transition after the delay
-          }, 1000); // 1 second delay before fade-in starts
-        } catch (error) {
-            console.error("Error liking song:", error);
-        }
+      try {
+        await axios.post('http://localhost:5000/like_song', track);
+        console.log('Song liked successfully');
+      } catch (error) {
+        console.error('Error liking song:', error);
+      }
+      try {
+          const response = await axios.get('http://localhost:5000/get_new_song', track);
+          setTrack(response.data);
+          setTimeout(() => {
+            setTransition('fade-in');  // Start the fade-in transition after the delay
+        }, 1000); // 1 second delay before fade-in starts
+      } catch (error) {
+          console.error("Error fetching song:", error);
+      }
     }, 500);
 };
 
