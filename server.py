@@ -17,21 +17,22 @@ sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=SPOTIPY_CLI
 @app.route('/get_new_song', methods=['GET'])
 def get_new_song():
     """Fetches a random track from Spotify based on a keyword search."""
-    keyword = "pop"
+    keyword = "genre:pop"
     results = sp.search(q=keyword, limit=50)
     track = random.choice(results['tracks']['items'])
     track_name = track['name']
     # track_artist = track['artists'][0]['name']
     track_id = track['id']
     embed_url = f"https://open.spotify.com/embed/track/{track_id}"
-    preview_url = track['preview_url']  
+    # preview_url = track['preview_url']  
 
     return jsonify({
         "track_name": track_name,
         # "track_artist": track_artist,
         "embed_url": embed_url,
-        'preview_url': preview_url
+        # 'preview_url': preview_url
     })
 
 if __name__ == '__main__':
     app.run(debug=True)
+    
