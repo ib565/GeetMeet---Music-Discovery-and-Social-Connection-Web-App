@@ -20,6 +20,9 @@ function App() {
   }
   };
 
+  const [likedSongs, setLikedSongs] = useState([]);
+
+
   const likeSong = async () => {
     setTransition('like');
     setTimeout(async () => {
@@ -34,6 +37,7 @@ function App() {
       } catch (error) {
         console.error("Error fetching song", error);
       }
+      fetchLikedSongs();  
     }, 500);
 };
 
@@ -48,10 +52,22 @@ function App() {
       }, 500);
   };
 
+  const fetchLikedSongs = () => {
+    axios.get('http://localhost:5000/get_liked_songs')
+    .then(response => {
+        // console.log("Received liked songs:", response.data);  
+        setLikedSongs(response.data);
+    });
+};
+
+
   useEffect(() => {
     fetchNewSong();
  }, []);  // The empty dependency array ensures it runs once after the initial render.
 
+ useEffect(() => {
+  fetchLikedSongs();
+}, []);
  
   return (
     <div className="App">
@@ -64,6 +80,18 @@ function App() {
           <button onClick={likeSong}><i className="fas fa-heart"></i></button>
         </div>
       </header>
+  <div className="sidebar">
+  <h2>Liked Songs</h2>
+  {likedSongs.map((song, index) => (
+    <div key={index} className="liked-song">
+      {song.track_name}
+      <div className="artist-name">
+            {song.track_artist}
+        </div>
+    </div>
+  ))}
+</div>
+
     </div>
   );
 }

@@ -21,16 +21,15 @@ def get_new_song():
     results = sp.search(q=keyword, limit=50)
     track = random.choice(results['tracks']['items'])
     track_name = track['name']
-    # track_artist = track['artists'][0]['name']
+    track_artist = track['artists'][0]['name']
     track_id = track['id']
     embed_url = f"https://open.spotify.com/embed/track/{track_id}"
-    # preview_url = track['preview_url']  
 
     return jsonify({
         "track_name": track_name,
         "track_id": track_id,
         "embed_url": embed_url,
-        # 'preview_url': preview_url
+        "track_artist": track_artist,
     })
 
 liked_songs = []
@@ -38,13 +37,15 @@ liked_songs = []
 @app.route('/like_song', methods=['POST'])
 def like_song():
     song_data = request.json
-    # print(song_data)
     if not any(song['track_id'] == song_data['track_id'] for song in liked_songs):
         liked_songs.append(song_data)
-    for song in liked_songs:
-        print(song['track_name'])
+    # for song in liked_songs:
+    #     print(song['track_name'])
     return jsonify({'message': 'Song liked!', 'total_likes': len(liked_songs)})
 
+@app.route('/get_liked_songs', methods=['GET'])
+def get_liked_songs():
+    return jsonify(liked_songs)
 
 if __name__ == '__main__':
     app.run(debug=True)
