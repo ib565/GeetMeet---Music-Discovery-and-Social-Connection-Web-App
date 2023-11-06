@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate  } from 'react-router-dom';
 
+
 const Signup = () => {
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
@@ -15,11 +16,10 @@ const Signup = () => {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:5000/signup', { username, name, password });
+      await axios.post('http://localhost:5000/signup', { username, name, password });
       navigate('/login'); // Redirect to login page upon successful signup
     } catch (error) {
       console.error('Signup failed:', error);
-      // Handle signup failure, show error message, etc.
     }
   };
 
@@ -56,6 +56,7 @@ const Signup = () => {
         />
         <button type="submit">Sign Up</button>
       </form>
+      <button onClick={() => navigate('/login')}>Already have an account? Login</button>
     </div>
   );
 };

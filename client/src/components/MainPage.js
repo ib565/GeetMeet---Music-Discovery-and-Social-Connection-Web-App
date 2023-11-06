@@ -69,32 +69,85 @@ const MainPage = () => {
   fetchLikedSongs();
 }, []);
 
+const findFavoriteArtist = () => {
+    const artistCountMap = {};
+    likedSongs.forEach((song) => {
+      if (artistCountMap[song.track_artist]) {
+        artistCountMap[song.track_artist]++;
+      } else {
+        artistCountMap[song.track_artist] = 1;
+      }
+    });
+  
+    let maxArtist = null;
+    let maxCount = 0;
+    Object.keys(artistCountMap).forEach((artist) => {
+      if (artistCountMap[artist] > maxCount) {
+        maxArtist = artist;
+        maxCount = artistCountMap[artist];
+      }
+    });
+  
     return (
-        
-    <div className="App">
-    <header className="App-header">
-      <div className={`song-container ${transition}`}>
-        <iframe style={{border: 'none'}} src={track.embed_url} width="300" height="380" allowtransparency="true" allow="encrypted-media; autoplay" title="Spotify"></iframe>
-      </div>
-      <div>
-        <button onClick={dislikeSong}><i className="fas fa-times"></i></button>
-        <button onClick={likeSong}><i className="fas fa-heart"></i></button>
-      </div>
-    </header>
-<div className="sidebar">
-<h2>Liked Songs</h2>
-{likedSongs.map((song, index) => (
-  <div key={index} className="liked-song">
-    {song.track_name}
-    <div className="artist-name">
-          {song.track_artist}
-      </div>
-  </div>
-))}
-</div>
-
-  </div>
+      <a href={`https://open.spotify.com/artist/${maxArtist}`} target="_blank" rel="noopener noreferrer">
+        {maxArtist}
+      </a>
     );
-};
+  };
+  
+  const favoriteArtist = findFavoriteArtist();
+
+
+  return (
+    // <div>
+    //   <div className="navbar">
+    //   <button className="small-signup-button">Sign Up</button>
+    // </div>
+    <div className="App">
+      
+      <header className="App-header">
+        <div className={`song-container ${transition}`}>
+          <iframe
+            style={{ border: 'none' }}
+            src={track.embed_url}
+            width="300"
+            height="380"
+            allowtransparency="true"
+            allow="encrypted-media; autoplay"
+            title="Spotify"
+          ></iframe>
+        </div>
+        <div>
+          <button onClick={dislikeSong}>
+            <i className="fas fa-times"></i>
+          </button>
+          <button onClick={likeSong}>
+            <i className="fas fa-heart"></i>
+          </button>
+        </div>
+      </header>
+     
+      <div className="sidebar">
+      <div className="favorite-artist-section">
+          <h2>Favorite Artist</h2>
+          <div className="favart" onClick={() => window.open(`https://open.spotify.com/search/${favoriteArtist.props.children}`, '_blank')}>
+            {favoriteArtist}
+          </div>
+        </div>
+        <h2>Liked Songs</h2>
+        {likedSongs.map((song, index) => (
+          <div key={index} className="liked-song">
+            {song.track_name}
+            <div className="artist-name">{song.track_artist}</div>
+          </div>
+        ))}
+        
+      </div>
+    </div>
+    
+ 
+  
+  );
+}
 
 export default MainPage;
