@@ -4,6 +4,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import random
 
+
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
