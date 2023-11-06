@@ -5,16 +5,17 @@ import { useNavigate  } from 'react-router-dom';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const history = useNavigate();
+  let navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/login', { username, password });
-      if (response.data === "Logged in successfully!") {
+      console.log(response.data)
+      if (response.data.message === "Login successful") {
         // Save the logged-in state in localStorage or context
         localStorage.setItem('isLoggedIn', true);
-        history.push('/main'); // Redirect to the main page
+        navigate('/'); // Redirect to the main page
       } else {
         alert('Invalid credentials');
       }

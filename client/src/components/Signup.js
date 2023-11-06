@@ -7,18 +7,16 @@ const Signup = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const history = useNavigate();
+  let navigate = useNavigate();
 
   const handleSignup = async (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
-      // Handle password mismatch
       return;
     }
     try {
-      const response = await axios.post('/signup', { username, name, password });
-      // Handle response, login user, etc.
-      history.push('/login'); // Redirect to login page upon successful signup
+      const response = await axios.post('http://localhost:5000/signup', { username, name, password });
+      navigate('/login'); // Redirect to login page upon successful signup
     } catch (error) {
       console.error('Signup failed:', error);
       // Handle signup failure, show error message, etc.
