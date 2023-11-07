@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate  } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
+import './Login.css'; // Import the CSS file
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -30,11 +30,10 @@ const Login = () => {
     navigate('/signup');
   };
 
-
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+    <div className="login-container">
+      <h2>Log in to गीतMeet</h2>
+      <form className="login-form" onSubmit={handleLogin}>
         <input
           type="text"
           placeholder="Username"
@@ -49,7 +48,7 @@ const Login = () => {
         />
         <button type="submit">Login</button>
       </form>
-      <button onClick={handleGoToSignup}>Signup</button>
+      <p>Don't have an account? <span className="signup-link" onClick={handleGoToSignup}>Sign up</span></p>
     </div>
   );
 };

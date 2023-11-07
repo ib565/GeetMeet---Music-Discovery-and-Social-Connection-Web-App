@@ -1,11 +1,14 @@
 import axios from 'axios';
 import '../App.css';
 import React, { useState, useEffect } from 'react';
+import { useNavigate  } from 'react-router-dom';
 
 const MainPage = () => {
+
     
     const [track, setTrack] = useState({});
   const [transition, setTransition] = useState(null);  // null, 'like', 'dislike'
+  let navigate = useNavigate();
 
 
   const fetchNewSong = async () => {
@@ -31,6 +34,9 @@ const MainPage = () => {
         console.log('Song liked successfully');
       } catch (error) {
         console.error('Error liking song:', error);
+        if (error.response.status === 401){
+            navigate('/login');  
+        }
       }
       try {
         await fetchNewSong();
@@ -113,7 +119,7 @@ const findFavoriteArtist = () => {
             width="300"
             height="380"
             allowtransparency="true"
-            allow="encrypted-media; autoplay"
+            // allow="encrypted-media; autoplay"
             title="Spotify"
           ></iframe>
         </div>

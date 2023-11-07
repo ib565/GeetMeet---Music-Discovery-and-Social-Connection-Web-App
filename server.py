@@ -1,14 +1,14 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session
 from flask_cors import CORS
+from flask_session import Session
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import random
 from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import generate_password_hash, check_password_hash
-
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
+app.secret_key = '12345'
 
 SPOTIPY_CLIENT_ID = '46b24680194d4e7bbbf2de4e33d7a10f'
 SPOTIPY_CLIENT_SECRET = '765794381aa54cea89db65cadaa9f16e'
@@ -41,11 +41,10 @@ class LikedSong(db.Model):
 with app.app_context():
     db.create_all()
 
-
 @app.route('/get_new_song', methods=['GET'])
 def get_new_song():
     """Fetches a random track from Spotify based on a keyword search."""
-    keyword = "genre:pop"
+    keyword = "genre:bollywood"
     results = sp.search(q=keyword, limit=50)
     track = random.choice(results['tracks']['items'])
     track_name = track['name']
@@ -64,6 +63,9 @@ liked_songs = []
 
 @app.route('/like_song', methods=['POST'])
 def like_song():
+    print(session.get('user_id', None))
+    # if 'user_id' not in session:
+    #     return jsonify({'message': 'User not logged in'}), 401
     song_data = request.json
     if not any(song['track_id'] == song_data['track_id'] for song in liked_songs):
         liked_songs.append(song_data)
@@ -80,6 +82,9 @@ def login():
     password = data.get('password')
 
     user = User.query.filter_by(username=username).first()
+    session['user_id'] = user.id
+    print(session.get('user_id', None))
+    session.modified = True
     if user and user.password == password:
         return jsonify({"message": "Login successful"}), 200
     else:
@@ -104,7 +109,5 @@ def signup():
     return jsonify({"message": "User created successfully", "user_id": new_user.id}), 201
 
 
-
 if __name__ == '__main__':
-    app.run(debug=True)
-    
+    app.run(debug=True)    
