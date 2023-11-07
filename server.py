@@ -63,12 +63,29 @@ liked_songs = []
 
 @app.route('/like_song', methods=['POST'])
 def like_song():
-    print(session.get('user_id', None))
-    # if 'user_id' not in session:
-    #     return jsonify({'message': 'User not logged in'}), 401
     song_data = request.json
+    # print(song_data)
+    # CHANGE ID HERE
+    id=2
+    existing_song = LikedSong.query.filter_by(
+        user_id=id, 
+        track_id=song_data['track_id']
+    ).first()
+    if existing_song:
+        return jsonify({'message': 'Song already liked!'}), 400
+
+    # new_liked_song = LikedSong(
+    #     user_id=id,
+    #     track_name=song_data['track_name'],
+    #     track_id=song_data['track_id'],
+    #     track_artist=song_data['track_artist']
+    # )
+    # db.session.add(new_liked_song)
+    # db.session.commit()
+
     if not any(song['track_id'] == song_data['track_id'] for song in liked_songs):
         liked_songs.append(song_data)
+
     return jsonify({'message': 'Song liked!', 'total_likes': len(liked_songs)})
 
 @app.route('/get_liked_songs', methods=['GET'])

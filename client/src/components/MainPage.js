@@ -34,9 +34,6 @@ const MainPage = () => {
         console.log('Song liked successfully');
       } catch (error) {
         console.error('Error liking song:', error);
-        if (error.response.status === 401){
-            navigate('/login');  
-        }
       }
       try {
         await fetchNewSong();
