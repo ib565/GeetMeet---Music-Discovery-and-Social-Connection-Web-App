@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.css'; // Import the CSS file
-
+axios.defaults.withCredentials = true;
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -14,9 +14,8 @@ const Login = () => {
       const response = await axios.post('http://localhost:5000/login', { username, password });
       console.log(response.data)
       if (response.data.message === "Login successful") {
-        // Save the logged-in state in localStorage or context
         localStorage.setItem('isLoggedIn', true);
-        navigate('/'); // Redirect to the main page
+        navigate('/');
       } else {
         alert('Invalid credentials');
       }

@@ -1,17 +1,21 @@
 from flask import Flask, jsonify, request, session
 from flask_cors import CORS
-from flask_session import Session
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import random
 from flask_sqlalchemy import SQLAlchemy
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
+app.secret_key = 'a_long_random_string'
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
-app.secret_key = '12345'
 
-SPOTIPY_CLIENT_ID = '46b24680194d4e7bbbf2de4e33d7a10f'
-SPOTIPY_CLIENT_SECRET = '765794381aa54cea89db65cadaa9f16e'
+
+SPOTIPY_CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
+SPOTIPY_CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
 
 # Set up Spotify API client
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID,
@@ -33,7 +37,7 @@ class LikedSong(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     track_name = db.Column(db.String(120), nullable=False)
-    track_id = db.Column(db.String(120), unique=True, nullable=False)
+    track_id = db.Column(db.String(120), nullable=False)
     track_artist = db.Column(db.String(120), nullable=False)
 
     user = db.relationship('User', backref=db.backref('liked_songs', lazy=True))
@@ -44,7 +48,7 @@ with app.app_context():
 @app.route('/get_new_song', methods=['GET'])
 def get_new_song():
     """Fetches a random track from Spotify based on a keyword search."""
-    keyword = "genre:bollywood"
+    keyword = "genre:rap"
     results = sp.search(q=keyword, limit=50)
     track = random.choice(results['tracks']['items'])
     track_name = track['name']
@@ -64,28 +68,25 @@ liked_songs = []
 @app.route('/like_song', methods=['POST'])
 def like_song():
     song_data = request.json
-    # print(song_data)
-    # CHANGE ID HERE
-    id=2
+    id = session.get('user_id')
     existing_song = LikedSong.query.filter_by(
         user_id=id, 
         track_id=song_data['track_id']
     ).first()
     if existing_song:
         return jsonify({'message': 'Song already liked!'}), 400
-
-    # new_liked_song = LikedSong(
-    #     user_id=id,
-    #     track_name=song_data['track_name'],
-    #     track_id=song_data['track_id'],
-    #     track_artist=song_data['track_artist']
-    # )
-    # db.session.add(new_liked_song)
-    # db.session.commit()
+    
+    new_liked_song = LikedSong(
+        user_id=id,
+        track_name=song_data['track_name'],
+        track_id=song_data['track_id'],
+        track_artist=song_data['track_artist']
+    )
+    db.session.add(new_liked_song)
+    db.session.commit()
 
     if not any(song['track_id'] == song_data['track_id'] for song in liked_songs):
         liked_songs.append(song_data)
-
     return jsonify({'message': 'Song liked!', 'total_likes': len(liked_songs)})
 
 @app.route('/get_liked_songs', methods=['GET'])
@@ -99,6 +100,7 @@ def login():
     password = data.get('password')
 
     user = User.query.filter_by(username=username).first()
+    
     session['user_id'] = user.id
     print(session.get('user_id', None))
     session.modified = True
@@ -114,11 +116,10 @@ def signup():
     password = request.json['password']
     print(username, name, password)
 
-    # Check if user already exists
     existing_user = User.query.filter_by(username=username).first()
     if existing_user:
         return jsonify({"message": "User already exists"}), 409
-
+    
     new_user = User(username=username, name=name, password=password)
     db.session.add(new_user)
     db.session.commit()
