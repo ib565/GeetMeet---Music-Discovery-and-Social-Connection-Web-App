@@ -1,0 +1,16 @@
+.userInfo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    background-color: #28282b; /* Match the color of MainPage */
+    color: #fff; /* White text for contrast */
+    z-index: 1000; /* Keep on top of other elements */
+    border-bottom-right-radius: 8px; /* Rounded corners for aesthetic */
+  }
+  
+  .userInfo p {
+    margin: 0; /* Remove default margin */
+    font-size: 14px; /* Adjust font size as needed */
+  }
+  

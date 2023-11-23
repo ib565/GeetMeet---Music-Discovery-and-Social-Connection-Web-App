@@ -102,7 +102,6 @@ def login():
     user = User.query.filter_by(username=username).first()
     
     session['user_id'] = user.id
-    print(session.get('user_id', None))
     session.modified = True
     if user and user.password == password:
         return jsonify({"message": "Login successful"}), 200
@@ -126,6 +125,19 @@ def signup():
 
     return jsonify({"message": "User created successfully", "user_id": new_user.id}), 201
 
+@app.route('/get_user_info', methods=['GET'])
+def get_user_info():
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({"error": "User not logged in"}), 401
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    user_info = {
+        "user_id": user.id,
+        "username": user.username
+    }
+    return jsonify(user_info)
 
 if __name__ == '__main__':
     app.run(debug=True)    

@@ -1,23 +1,21 @@
 import axios from 'axios';
 import '../App.css';
 import React, { useState, useEffect } from 'react';
-import { useNavigate  } from 'react-router-dom';
+import UserInfo from './UserInfo'; 
 
 const MainPage = () => {
 
     
     const [track, setTrack] = useState({});
-  const [transition, setTransition] = useState(null);  // null, 'like', 'dislike'
-  let navigate = useNavigate();
-
+  const [transition, setTransition] = useState(null);
 
   const fetchNewSong = async () => {
     try {
       const response = await axios.get('http://localhost:5000/get_new_song');
       setTrack(response.data);
       setTimeout(() => {
-        setTransition('fade-in');  // Start the fade-in transition after the delay
-    }, 1000); // 1 second delay before fade-in starts
+        setTransition('fade-in');
+    }, 1000);
   } catch (error) {
       console.error("Error fetching song:", error);
   }
@@ -58,7 +56,6 @@ const MainPage = () => {
   const fetchLikedSongs = () => {
     axios.get('http://localhost:5000/get_liked_songs')
     .then(response => {
-        // console.log("Received liked songs:", response.data);  
         setLikedSongs(response.data);
     });
 };
@@ -66,7 +63,7 @@ const MainPage = () => {
 
   useEffect(() => {
     fetchNewSong();
- }, []);  // The empty dependency array ensures it runs once after the initial render.
+ }, []);  
 
  useEffect(() => {
   fetchLikedSongs();
@@ -92,7 +89,7 @@ const findFavoriteArtist = () => {
     });
   
     return (
-      <a href={`https://open.spotify.com/artist/${maxArtist}`} target="_blank" rel="noopener noreferrer">
+      <a href={`https://open.spotify.com/search/${maxArtist}`} target="_blank" rel="noopener noreferrer">
         {maxArtist}
       </a>
     );
@@ -102,12 +99,8 @@ const findFavoriteArtist = () => {
 
 
   return (
-    // <div>
-    //   <div className="navbar">
-    //   <button className="small-signup-button">Sign Up</button>
-    // </div>
-    <div className="App">
-      
+     <div className="App">
+      <UserInfo />
       <header className="App-header">
         <div className={`song-container ${transition}`}>
           <iframe
@@ -116,7 +109,6 @@ const findFavoriteArtist = () => {
             width="300"
             height="380"
             allowtransparency="true"
-            // allow="encrypted-media; autoplay"
             title="Spotify"
           ></iframe>
         </div>
@@ -129,11 +121,10 @@ const findFavoriteArtist = () => {
           </button>
         </div>
       </header>
-     
       <div className="sidebar">
       <div className="favorite-artist-section">
           <h2>Favorite Artist</h2>
-          <div className="favart" onClick={() => window.open(`https://open.spotify.com/search/${favoriteArtist.props.children}`, '_blank')}>
+          <div className="favart">
             {favoriteArtist}
           </div>
         </div>
@@ -146,10 +137,7 @@ const findFavoriteArtist = () => {
         ))}
         
       </div>
-    </div>
-    
- 
-  
+    </div> 
   );
 }
 
