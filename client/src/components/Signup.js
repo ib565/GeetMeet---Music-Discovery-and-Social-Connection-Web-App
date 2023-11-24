@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './Signup.css'; // Import the CSS file
+import './Signup.css'; 
+import img from "./gmlogin.png";
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -26,7 +27,9 @@ const Signup = () => {
 
   return (
     <div className="signup-container">
-      <h2>Sign up to start <br></br>listening </h2> {/* Updated heading */}
+      <div>
+        <img src={img} alt="GM Login" className="gmlogin-image" />
+      </div>
       <form className="signup-form" onSubmit={handleSignup}>
         <input
           type="text"

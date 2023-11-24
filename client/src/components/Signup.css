@@ -65,3 +65,13 @@
   }
   
   
+
+  .gmlogin-image {
+    width: 370px; /* Set the width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-top: -200px;
+    margin-bottom: -80px;
+    /* margin-bottom: 20px; Adjust the margin as needed */
+  }
+  
+  

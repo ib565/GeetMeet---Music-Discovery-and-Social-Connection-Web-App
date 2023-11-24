@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'; // Import the CSS file
+import './Login.css';
+import img from "./gmlogin.png";
+
 axios.defaults.withCredentials = true;
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -31,7 +33,9 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <h2>Log in to गीतMeet</h2>
+      <div>
+        <img src={img} alt="GM Login" className="gmlogin-image" />
+      </div>
       <form className="login-form" onSubmit={handleLogin}>
         <input
           type="text"

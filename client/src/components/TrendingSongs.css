@@ -3,9 +3,7 @@
 .trending-songs {
     color: #fff;
     background-color: rgb(28, 28, 28); /* Or any other desired color */
-    padding: 10px;
-    margin-top: 20px; /* Spacing from the content above */
-    
+    padding: 10px;    
   }
   
   .trending-songs h2 {
@@ -23,3 +21,11 @@
     /* Additional styling as needed */
   }
   
+
+  .artist_name {
+    color: grey;
+    font-style: italic;
+    font-size: 0.8em;
+  
+    align-items: left;
+  }

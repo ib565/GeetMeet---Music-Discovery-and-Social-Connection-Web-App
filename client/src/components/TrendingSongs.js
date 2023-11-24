@@ -19,10 +19,10 @@ const TrendingSongs = () => {
 
   return (
     <div className="trending-songs">
-      <h2>Trending Songs</h2>
+      <h2>Global Trending Songs</h2>
       <ul>
         {trending.map((song, index) => (
-          <li key={index}>{song.title} by {song.artist}</li>
+          <li key={index}>{song.title}<br></br><div className="artist_name">{song.artist}</div></li>
         ))}
       </ul>
     </div>
