@@ -88,7 +88,7 @@ def get_matches():
         name = user.name
         top_matches_list.append((name, match[1], id))
 
-    return jsonify({'top_matches': top_matches_list})
+    return jsonify({'top_matches': top_matches_list[:3]})
 
 
 # SONG ROUTES
