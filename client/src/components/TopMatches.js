@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './TopMatches.css'
 
-const TopMatches = ({updateTrigger }) => {
+const TopMatches = ({ updateTrigger }) => {
   const [matches, setMatches] = useState([]);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const TopMatches = ({updateTrigger }) => {
 
   return (
     <div className="top-matches">
-      <h3>Top Matches</h3>
+      <h2>Top Matches</h2>
       <ul>
         {matches.map((match, index) => (
           <li key={index}>{match[0]} (Score: {match[1].toFixed(2)})</li>
