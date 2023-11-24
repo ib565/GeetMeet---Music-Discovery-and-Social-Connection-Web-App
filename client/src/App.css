@@ -229,3 +229,19 @@
     text-decoration: none; /* Remove underline */
     color: white; /* Change text color to white */
   }
+
+  .logo-container {
+    width: 100%;
+    background-color: #28282b; /* Matches the dark theme */
+    /* padding: 10px 20px; Adds some spacing around the content */
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center; /* Centers the logo horizontally */
+    align-items: center; /* Aligns the logo vertically */
+    margin-bottom: -60px;
+    margin-top: -180px;
+  }
+  
+  .logo {
+    height: 300px; /* Example size, adjust as needed */
+  }

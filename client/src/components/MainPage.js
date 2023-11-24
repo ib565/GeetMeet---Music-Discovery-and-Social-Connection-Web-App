@@ -3,6 +3,7 @@ import '../App.css';
 import React, { useState, useEffect } from 'react';
 import UserInfo from './UserInfo'; 
 import TopMatches from './TopMatches';
+import Image from "./SDL_LOGO_WHITE.png"
 
 const MainPage = () => {
   const [updateTrigger, setUpdateTrigger] = useState(false);
@@ -104,6 +105,9 @@ const findFavoriteArtist = () => {
       <TopMatches updateTrigger={updateTrigger}/>
       </div>    
       <header className="App-header">
+      <div className="logo-container">
+    <img src={Image} alt="Logo" className="logo" />
+  </div>
         <div className={`song-container ${transition}`}>
           <iframe
             style={{ border: 'none' }}
