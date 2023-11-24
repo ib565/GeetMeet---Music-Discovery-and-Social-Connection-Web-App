@@ -81,7 +81,15 @@ def get_matches():
     if user_id not in user_preferences:
         return jsonify({'error': 'User not found'}), 404
     top_matches = get_top_matches(user_id, user_preferences)
-    return jsonify({'top_matches': top_matches})
+    print(top_matches)
+    top_matches_list = []
+    for match in top_matches:
+        id = match[0]
+        user = User.query.get(id)
+        name = user.name
+        top_matches_list.append((name, match[1]))
+
+    return jsonify({'top_matches': top_matches_list})
 
 
 # SONG ROUTES
