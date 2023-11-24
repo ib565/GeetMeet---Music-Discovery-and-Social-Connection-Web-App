@@ -5,29 +5,56 @@
   color: #fff; /* White text for contrast */
   padding: 15px; /* Spacing inside the component */
   border-radius: 8px; /* Rounded corners */
-  margin: 10px 0; /* Spacing outside the component */
+  margin: 100px 0; /* Spacing outside the component */
 }
 
-.top-matches h3 {
+.top-matches h2 {
   margin-top: 0;
   margin-bottom: 12px; /* Spacing below the title */
-  font-size: 18px; /* Slightly larger font for the title */
+  /* font-size: 18px; */
+  color: #f0f0f0;
+  text-align: center;
+  font-size: 1.5rem;
+  /* Slightly larger font for the title */
 }
 
 .top-matches ul {
+  background-color: rgb(28, 28, 28);
+  color: #f0f0f0;
+
+  justify-content: space-between;
+
+  align-items: left;
+  padding: 10px;
+  transition: background-color 0.3s;
+  border-radius: 10px;
   list-style: none; /* Remove default list styling */
   padding: 0;
   margin: 0;
 }
 
 .top-matches li {
-  margin-bottom: 8px; /* Spacing between items */
-  padding: 5px; /* Spacing inside each item */
-  border-radius: 4px; /* Rounded corners for each item */
-  background-color: rgba(255, 255, 255, 0.1); /* Slightly lighter background for each item */
-  cursor: pointer; /* Cursor change to indicate interactiveness */
+  /* margin-bottom: 8px; 
+  padding: 5px; 
+  border-radius: 4px;
+  background-color: rgba(
+    255,  
+    255,
+    255,
+    0.1
+  ); */
+  background-color: rgb(28, 28, 28);
+  color: #f0f0f0;
+
+  justify-content: space-between;
+
+  align-items: left;
+  padding: 10px;
+  transition: background-color 0.3s;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .top-matches li:hover {
-  background-color: rgba(255, 255, 255, 0.2); /* Slightly lighter background on hover */
+  background-color: black;
 }
