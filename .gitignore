@@ -5,3 +5,5 @@ flask_session/
 .env
 myvenv/
 .venv
+instance/
+mydatabase.db
