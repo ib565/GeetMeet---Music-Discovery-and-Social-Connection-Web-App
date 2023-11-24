@@ -1,0 +1,25 @@
+/* Add to your CSS file */
+
+.trending-songs {
+    color: #fff;
+    background-color: rgb(28, 28, 28); /* Or any other desired color */
+    padding: 10px;
+    margin-top: 20px; /* Spacing from the content above */
+    
+  }
+  
+  .trending-songs h2 {
+    margin-bottom: 10px;
+  }
+  
+  .trending-songs ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .trending-songs li {
+    margin-bottom: 20px;
+    font-size: large;
+    /* Additional styling as needed */
+  }
+  

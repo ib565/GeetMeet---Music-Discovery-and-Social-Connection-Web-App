@@ -5,7 +5,8 @@
   color: #fff; /* White text for contrast */
   padding: 15px; /* Spacing inside the component */
   border-radius: 8px; /* Rounded corners */
-  margin: 100px 0; /* Spacing outside the component */
+  margin-top: 120px; /* Spacing outside the component */
+  margin-bottom: 40px;
 }
 
 .top-matches h2 {
@@ -28,7 +29,7 @@
   padding: 10px;
   transition: background-color 0.3s;
   border-radius: 10px;
-  list-style: none; /* Remove default list styling */
+  list-style: none;
   padding: 0;
   margin: 0;
 }

@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import UserInfo from './UserInfo'; 
 import TopMatches from './TopMatches';
 import Image from "./SDL_LOGO_WHITE.png"
+import TrendingSongs from './TrendingSongs';
+import { Link } from 'react-router-dom';
 
 const MainPage = () => {
   const [updateTrigger, setUpdateTrigger] = useState(false);
@@ -103,6 +105,10 @@ const findFavoriteArtist = () => {
       <div className="left-sidebar">
       <UserInfo />
       <TopMatches updateTrigger={updateTrigger}/>
+      <TrendingSongs />
+      <div className="login-button-container">
+    <Link to="/login" className="login-button">Login</Link>
+  </div>
       </div>    
       <header className="App-header">
       <div className="logo-container">

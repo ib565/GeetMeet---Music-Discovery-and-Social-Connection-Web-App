@@ -81,7 +81,6 @@ def get_matches():
     if user_id not in user_preferences:
         return jsonify({'error': 'User not found'}), 404
     top_matches = get_top_matches(user_id, user_preferences)
-    print(top_matches)
     top_matches_list = []
     for match in top_matches:
         id = match[0]
@@ -141,6 +140,15 @@ def like_song():
 @app.route('/get_liked_songs', methods=['GET'])
 def get_liked_songs():
     return jsonify(liked_songs)
+
+@app.route('/trending')
+def get_trending_songs():
+    results = sp.playlist_tracks('37i9dQZEVXbMDoHDwVN2tF')
+    trending_songs = []
+    for idx, item in enumerate(results['items']):
+        track = item['track']
+        trending_songs.append({'title': track['name'], 'artist': track['artists'][0]['name']})
+    return jsonify(trending_songs[:5])
 
 # USER ROUTES
 

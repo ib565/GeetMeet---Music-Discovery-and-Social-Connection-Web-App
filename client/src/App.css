@@ -245,3 +245,25 @@
   .logo {
     height: 300px; /* Example size, adjust as needed */
   }
+
+  /* Add to your CSS file */
+
+.login-button-container {
+  padding: 10px;
+  margin-top: 10px; /* Pushes the button to the bottom */
+}
+
+.login-button {
+  display: block; /* Makes the link fill the container */
+  text-align: center; /* Centers the text */
+  padding: 10px 20px;
+  background-color: #1db954; /* Spotify green for visibility */
+  color: white;
+  border-radius: 20px; /* Rounded corners for aesthetics */
+  text-decoration: none; /* Removes the underline */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.login-button:hover {
+  background-color: #17a854; /* Slightly darker green on hover */
+}
