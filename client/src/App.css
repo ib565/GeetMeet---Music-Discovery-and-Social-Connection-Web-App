@@ -108,7 +108,6 @@
   
   
   .sidebar {
-    /* overflow-y: auto; */
     position: fixed;
     top: 0;
     right: 0;
@@ -127,6 +126,25 @@
     border-color: #28282b;
     overflow-y: auto;
   }
+
+  .left-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100%;
+    background-color: rgb(28, 28, 28);
+    padding: 10px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex;
+    border-style: solid;
+    border: 2px;
+    border-color: #28282b;
+    overflow-y: auto;
+  }
+  
   
   h2 {
     color: #f0f0f0;
@@ -140,16 +158,12 @@
     background-color: rgb(28, 28, 28);
     color: #f0f0f0;
   
-    /* font-weight: bold; */
-  
     justify-content: space-between;
   
     align-items: left;
     padding: 10px;
-    /* border-bottom: 1px solid #ccc; */
     transition: background-color 0.3s;
     border-radius: 10px; /* Add rounded corners */
-    /* box-shadow: 2px 2px 5px rgba(149, 9, 9, 0.1); Add a subtle shadow */
   }
   
   .liked-song:hover {

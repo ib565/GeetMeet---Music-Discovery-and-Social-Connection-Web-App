@@ -2,11 +2,11 @@ import axios from 'axios';
 import '../App.css';
 import React, { useState, useEffect } from 'react';
 import UserInfo from './UserInfo'; 
+import TopMatches from './TopMatches';
 
 const MainPage = () => {
-
-    
-    const [track, setTrack] = useState({});
+  const [updateTrigger, setUpdateTrigger] = useState(false);
+  const [track, setTrack] = useState({});
   const [transition, setTransition] = useState(null);
 
   const fetchNewSong = async () => {
@@ -22,7 +22,6 @@ const MainPage = () => {
   };
 
   const [likedSongs, setLikedSongs] = useState([]);
-
 
   const likeSong = async () => {
     setTransition('like');
@@ -40,6 +39,7 @@ const MainPage = () => {
       }
       fetchLikedSongs();  
     }, 500);
+    setUpdateTrigger(prev => !prev);
 };
 
   const dislikeSong = async () => {
@@ -97,10 +97,12 @@ const findFavoriteArtist = () => {
   
   const favoriteArtist = findFavoriteArtist();
 
-
   return (
      <div className="App">
-      <UserInfo />
+      <div className="left-sidebar">
+      <TopMatches updateTrigger={updateTrigger}/>
+      </div>
+      <UserInfo />      
       <header className="App-header">
         <div className={`song-container ${transition}`}>
           <iframe
@@ -135,9 +137,8 @@ const findFavoriteArtist = () => {
             <div className="artist-name">{song.track_artist}</div>
           </div>
         ))}
-        
       </div>
-    </div> 
+      </div>
   );
 }
 

@@ -1,0 +1,33 @@
+/* TopMatches.css */
+
+.top-matches {
+  background-color: rgb(28, 28, 28); /* Dark background */
+  color: #fff; /* White text for contrast */
+  padding: 15px; /* Spacing inside the component */
+  border-radius: 8px; /* Rounded corners */
+  margin: 10px 0; /* Spacing outside the component */
+}
+
+.top-matches h3 {
+  margin-top: 0;
+  margin-bottom: 12px; /* Spacing below the title */
+  font-size: 18px; /* Slightly larger font for the title */
+}
+
+.top-matches ul {
+  list-style: none; /* Remove default list styling */
+  padding: 0;
+  margin: 0;
+}
+
+.top-matches li {
+  margin-bottom: 8px; /* Spacing between items */
+  padding: 5px; /* Spacing inside each item */
+  border-radius: 4px; /* Rounded corners for each item */
+  background-color: rgba(255, 255, 255, 0.1); /* Slightly lighter background for each item */
+  cursor: pointer; /* Cursor change to indicate interactiveness */
+}
+
+.top-matches li:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Slightly lighter background on hover */
+}

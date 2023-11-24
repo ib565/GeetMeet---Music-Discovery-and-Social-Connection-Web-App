@@ -1,3 +1,4 @@
+from collections import defaultdict
 from flask import Flask, jsonify, request, session
 from flask_cors import CORS
 import spotipy
@@ -45,6 +46,43 @@ class LikedSong(db.Model):
 with app.app_context():
     db.create_all()
 
+# Function to fetch user preferences
+def get_user_preferences():
+    user_preferences = defaultdict(list)
+    liked_songs = LikedSong.query.all()
+    for song in liked_songs:
+        user_preferences[song.user_id].append(song.track_id)
+    return user_preferences
+
+def calculate_similarity(current_user_id, user_preferences):
+    current_user_prefs = set(user_preferences[current_user_id])
+    similarity_scores = {}
+
+    for user_id, prefs in user_preferences.items():
+        if user_id != current_user_id:
+            other_user_prefs = set(prefs)
+            shared_likes = current_user_prefs.intersection(other_user_prefs)
+            total_likes = len(current_user_prefs.union(other_user_prefs))
+            similarity_score = len(shared_likes) / total_likes if total_likes > 0 else 0
+            similarity_scores[user_id] = similarity_score
+
+    return similarity_scores
+
+def get_top_matches(current_user_id, user_preferences, top_n=3):
+    similarity_scores = calculate_similarity(current_user_id, user_preferences)
+    sorted_users = sorted(similarity_scores.items(), key=lambda x: x[1], reverse=True)
+    return sorted_users
+
+@app.route('/get_matches')
+def get_matches():
+    user_id = session.get('user_id')
+    user_preferences = get_user_preferences()
+    if user_id not in user_preferences:
+        return jsonify({'error': 'User not found'}), 404
+
+    top_matches = get_top_matches(user_id, user_preferences)
+    return jsonify({'top_matches': top_matches})
+
 @app.route('/get_new_song', methods=['GET'])
 def get_new_song():
     """Fetches a random track from Spotify based on a keyword search."""
@@ -73,8 +111,6 @@ def like_song():
         user_id=id, 
         track_id=song_data['track_id']
     ).first()
-    if existing_song:
-        return jsonify({'message': 'Song already liked!'}), 400
     
     new_liked_song = LikedSong(
         user_id=id,
@@ -85,8 +121,10 @@ def like_song():
     db.session.add(new_liked_song)
     db.session.commit()
 
-    if not any(song['track_id'] == song_data['track_id'] for song in liked_songs):
-        liked_songs.append(song_data)
+    liked_songs.append(song_data)
+
+    if existing_song:
+        return jsonify({'message': 'Song already liked!'}), 400
     return jsonify({'message': 'Song liked!', 'total_likes': len(liked_songs)})
 
 @app.route('/get_liked_songs', methods=['GET'])
@@ -98,9 +136,7 @@ def login():
     data = request.json
     username = data.get('username')
     password = data.get('password')
-
     user = User.query.filter_by(username=username).first()
-    
     session['user_id'] = user.id
     session.modified = True
     if user and user.password == password:
