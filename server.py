@@ -87,7 +87,7 @@ def get_matches():
         id = match[0]
         user = User.query.get(id)
         name = user.name
-        top_matches_list.append((name, match[1]))
+        top_matches_list.append((name, match[1], id))
 
     return jsonify({'top_matches': top_matches_list})
 

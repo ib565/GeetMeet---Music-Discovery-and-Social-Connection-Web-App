@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './TopMatches.css'
+import { useNavigate } from 'react-router-dom';
 
 const TopMatches = ({ updateTrigger }) => {
   const [matches, setMatches] = useState([]);
+  let navigate = useNavigate();
+
+  const handleUserClick = (userId) => {
+    navigate(`/user/${userId}`);
+  };
 
   useEffect(() => {
     const fetchTopMatches = async () => {
@@ -23,7 +29,7 @@ const TopMatches = ({ updateTrigger }) => {
       <h2>Top Matches</h2>
       <ul>
         {matches.map((match, index) => (
-          <li key={index}>{match[0]} (Score: {match[1].toFixed(2)})</li>
+          <li key={index} onClick={() => handleUserClick(match[2])}>{match[0]} (Score: {match[1].toFixed(2)})</li>
         ))}
       </ul>
     </div>
