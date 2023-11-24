@@ -1,0 +1,55 @@
+/* UserPage.css */
+
+body {
+    background-color: #28282b; /* Grey background */
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #ffffff; /* White text for contrast */
+  }
+
+.user-page {
+    color: #ffffff;
+    background-color: #28282b;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 100%; /* Adjust as needed */
+  }
+  
+  .user-details {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-bottom: 1px solid #3a3a3a; /* Slightly lighter than the background for contrast */
+  }
+  
+  .user-details h1 {
+    margin: 0 0 10px 0;
+  }
+  
+  .user-details p {
+    margin: 5px 0;
+    font-size: 16px;
+  }
+  
+  .spotify-link {
+    color: #1DB954; /* Spotify green for recognizable branding */
+    text-decoration: none;
+  }
+  
+  .spotify-link:hover {
+    text-decoration: underline;
+  }
+  
+  .liked-songs {
+    line-height:100%;
+    padding: 10;
+  }
+  
+  .liked_song {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 1.25rem;
+  }
+  

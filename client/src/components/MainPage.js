@@ -100,9 +100,9 @@ const findFavoriteArtist = () => {
   return (
      <div className="App">
       <div className="left-sidebar">
+      <UserInfo />
       <TopMatches updateTrigger={updateTrigger}/>
-      </div>
-      <UserInfo />      
+      </div>    
       <header className="App-header">
         <div className={`song-container ${transition}`}>
           <iframe

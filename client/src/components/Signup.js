@@ -8,6 +8,7 @@ const Signup = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [spotify, setSpotify] = useState('');
   let navigate = useNavigate();
 
   const handleSignup = async (event) => {
@@ -16,8 +17,8 @@ const Signup = () => {
       return;
     }
     try {
-      await axios.post('http://localhost:5000/signup', { username, name, password });
-      navigate('/login'); // Redirect to login page upon successful signup
+      await axios.post('http://localhost:5000/signup', { username, name, password, spotify });
+      navigate('/login');
     } catch (error) {
       console.error('Signup failed:', error);
     }
@@ -54,6 +55,12 @@ const Signup = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           placeholder="Confirm Password"
           required
+        />
+        <input
+          type="spotify"
+          value={spotify}
+          onChange={(e) => setSpotify(e.target.value)}
+          placeholder="Spotify link"
         />
         <button type="submit">Sign Up</button>
       </form>

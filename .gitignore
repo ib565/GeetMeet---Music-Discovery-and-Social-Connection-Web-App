@@ -3,3 +3,5 @@ venv/
 instance/
 flask_session/
 .env
+myvenv/
+.venv

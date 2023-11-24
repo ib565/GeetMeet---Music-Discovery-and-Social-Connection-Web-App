@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+
 .App {
     text-align: center;
   }
@@ -39,6 +41,7 @@
   
   body {
     font-family: "Roboto", sans-serif;
+    /* font-family: "Poppins", sans-serif; */
     background-color: #f4f4f4;
   }
   
@@ -163,7 +166,7 @@
     align-items: left;
     padding: 10px;
     transition: background-color 0.3s;
-    border-radius: 10px; /* Add rounded corners */
+    border-radius: 10px;
   }
   
   .liked-song:hover {

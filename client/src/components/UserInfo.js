@@ -20,8 +20,7 @@ const UserInfo = () => {
 
   return (
     <div className="userInfo">
-      <p>User ID: {userInfo.user_id}</p>
-      <p>Username: {userInfo.username}</p>
+      <p>Hey, {userInfo.name}</p>
     </div>
   );
 };

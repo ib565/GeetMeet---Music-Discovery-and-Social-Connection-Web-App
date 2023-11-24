@@ -33,6 +33,7 @@ class User(db.Model):
     username = db.Column(db.String(80), nullable=False)
     name = db.Column(db.String(120), nullable=False)
     password = db.Column(db.String(120), nullable=False)
+    spotify = db.Column(db.String(240), nullable=False)
 
 class LikedSong(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -46,7 +47,7 @@ class LikedSong(db.Model):
 with app.app_context():
     db.create_all()
 
-# Function to fetch user preferences
+# USER MATCHING
 def get_user_preferences():
     user_preferences = defaultdict(list)
     liked_songs = LikedSong.query.all()
@@ -79,9 +80,11 @@ def get_matches():
     user_preferences = get_user_preferences()
     if user_id not in user_preferences:
         return jsonify({'error': 'User not found'}), 404
-
     top_matches = get_top_matches(user_id, user_preferences)
     return jsonify({'top_matches': top_matches})
+
+
+# SONG ROUTES
 
 @app.route('/get_new_song', methods=['GET'])
 def get_new_song():
@@ -131,6 +134,8 @@ def like_song():
 def get_liked_songs():
     return jsonify(liked_songs)
 
+# USER ROUTES
+
 @app.route("/login", methods=["POST"])
 def login():
     data = request.json
@@ -149,13 +154,15 @@ def signup():
     username = request.json['username']
     name = request.json['name']
     password = request.json['password']
-    print(username, name, password)
+    spotify = request.json['spotify']
+
+    print(username, name, password, spotify)
 
     existing_user = User.query.filter_by(username=username).first()
     if existing_user:
         return jsonify({"message": "User already exists"}), 409
     
-    new_user = User(username=username, name=name, password=password)
+    new_user = User(username=username, name=name, password=password, spotify=spotify)
     db.session.add(new_user)
     db.session.commit()
 
@@ -171,9 +178,30 @@ def get_user_info():
         return jsonify({"error": "User not found"}), 404
     user_info = {
         "user_id": user.id,
-        "username": user.username
+        "username": user.username,
+        "name":user.name
     }
     return jsonify(user_info)
+
+@app.route('/user/<int:user_id>', methods=['GET'])
+def get_user_details(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    liked_songs = LikedSong.query.filter_by(user_id=user_id).all()
+    liked_songs_data = [{'track_name': song.track_name, 'track_id': song.track_id} for song in liked_songs]
+
+    user_data = {
+        'user_id': user.id,
+        'username': user.username,
+        "name":user.name,
+        'spotify_link': user.spotify,
+        'liked_songs': liked_songs_data
+    }
+
+    return jsonify(user_data)
+
 
 if __name__ == '__main__':
     app.run(debug=True)    
