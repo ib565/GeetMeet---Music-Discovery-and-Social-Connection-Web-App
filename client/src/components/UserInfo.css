@@ -14,8 +14,15 @@
   align-items: center; /* Align items in the center vertically */
 }
 
-.userInfo p {
+.userInfo a {
+  cursor: pointer;
+  padding: 20px;
   font-size: 1.5rem;
   display: flex;
   font-weight: 600;
+  border-radius: 10px;
 }
+
+.userInfo a:hover {
+  background-color: black;
+} 

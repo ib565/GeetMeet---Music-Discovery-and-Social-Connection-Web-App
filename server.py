@@ -97,7 +97,7 @@ def get_matches():
 @app.route('/get_new_song', methods=['GET'])
 def get_new_song():
     """Fetches a random track from Spotify based on a keyword search."""
-    keyword = "genre:rap"
+    keyword = "genre:bollywood"
     results = sp.search(q=keyword, limit=50)
     track = random.choice(results['tracks']['items'])
     track_name = track['name']

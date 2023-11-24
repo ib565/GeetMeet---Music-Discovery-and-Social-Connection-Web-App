@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserInfo.css';
+import { useNavigate } from 'react-router-dom';
 
 const UserInfo = () => {
   const [userInfo, setUserInfo] = useState({ user_id: '', username: '' });
+  let navigate = useNavigate();
+
+  const handleNameClick = (userId) => {
+    navigate(`/user/${userId}`);
+  };
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -20,7 +26,7 @@ const UserInfo = () => {
 
   return (
     <div className="userInfo">
-      <p>Hey, {userInfo.name}</p>
+      <a onClick={() => handleNameClick(userInfo.user_id)}>Hey, {userInfo.name}</a>
     </div>
   );
 };
